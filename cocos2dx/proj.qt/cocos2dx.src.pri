@@ -4,7 +4,7 @@ INCLUDEPATH += $${PWD}/.. \
 
 DEFINES += LINUX
 
-SOURCES += $${PWD}/../actions/CCAction.cpp \
+SOURCES +=  $${PWD}/../actions/CCAction.cpp \
             $${PWD}/../actions/CCActionCamera.cpp \
             $${PWD}/../actions/CCActionEase.cpp \
             $${PWD}/../actions/CCActionGrid.cpp \
@@ -98,7 +98,7 @@ SOURCES += $${PWD}/../actions/CCAction.cpp \
             $${PWD}/../cocos2d.cpp
 
 
-HEADERS += CCAccelerometerDelegate.h \
+HEADERS += $${PWD}/../include/CCAccelerometerDelegate.h \
             $${PWD}/../include/CCAccelerometer.h \
             $${PWD}/../include/CCActionCamera.h \
             $${PWD}/../include/CCActionEase.h \
