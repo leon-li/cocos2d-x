@@ -54,10 +54,10 @@ SOURCES += $${PWD}/../actions/CCAction.cpp \
             $${PWD}/../platform/CCStdC.cpp \
             $${PWD}/../platform/CCThread.cpp \
             $${PWD}/../platform/platform.cpp \
-            $${PWD}/../platform/Linux/CCAplication_linux.cpp \
-            $${PWD}/../platform/Linux/CCEGLView_linux.cpp \
-            $${PWD}/../platform/Linux/CCFileUtils_Linux.cpp \
-            $${PWD}/../platform/Linux/CCImage_Linux.cpp \
+            $${PWD}/../platform/linux/CCApplication_linux.cpp \
+            $${PWD}/../platform/linux/CCEGLView_linux.cpp \
+            $${PWD}/../platform/linux/CCFileUtils_linux.cpp \
+            $${PWD}/../platform/linux/CCImage_linux.cpp \
             $${PWD}/../script_support/CCScriptSupport.cpp \
             $${PWD}/../sprite_nodes/CCAnimation.cpp \
             $${PWD}/../sprite_nodes/CCAnimationCache.cpp \
@@ -95,7 +95,8 @@ SOURCES += $${PWD}/../actions/CCAction.cpp \
             $${PWD}/../CCDirector.cpp \
             $${PWD}/../CCDrawingPrimitives.cpp \
             $${PWD}/../CCScheduler.cpp \
-            $${PWD}/../cocos2d.cpp
+            $${PWD}/../cocos2d.cpp \
+            $${PWD}/../extensions/CCNotificationCenter.cpp \
 
 
 HEADERS += CCAccelerometerDelegate.h \
