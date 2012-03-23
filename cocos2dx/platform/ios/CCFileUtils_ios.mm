@@ -33,6 +33,7 @@ THE SOFTWARE.
 #include "CCFileUtils.h"
 #include "CCDirector.h"
 #include "CCSAXParser.h"
+#include "support/zip_support/unzip.h"
 
 #define MAX_PATH 260
 
@@ -53,7 +54,8 @@ static const char *static_ccRemoveHDSuffixFromFile( const char *pszPath)
         // check if path already has the suffix.
         if( [name rangeOfString: suffix].location != NSNotFound ) {
 
-            CCLOG("cocos2d: Filename(%@) contains %@ suffix. Removing it. See cocos2d issue #1040", path, CC_RETINA_DISPLAY_FILENAME_SUFFIX);
+            CCLOG("cocos2d: Filename(%s) contains %s suffix. Removing it. See cocos2d issue #1040", [path UTF8String], CC_RETINA_DISPLAY_FILENAME_SUFFIX);
+
 
             NSString *newLastname = [name stringByReplacingOccurrencesOfString: suffix withString:@""];
 
@@ -81,7 +83,7 @@ static NSString* getDoubleResolutionImage(NSString* path)
         // check if path already has the suffix.
         if( [name rangeOfString: suffix].location != NSNotFound ) {
 
-            CCLOG("cocos2d: WARNING Filename(%@) already has the suffix %@. Using it.", name, CC_RETINA_DISPLAY_FILENAME_SUFFIX);			
+            CCLOG("cocos2d: WARNING Filename(%s) already has the suffix %s. Using it.", [name UTF8String], CC_RETINA_DISPLAY_FILENAME_SUFFIX);			
             return path;
         }
 
@@ -104,7 +106,7 @@ static NSString* getDoubleResolutionImage(NSString* path)
         if( [fileManager fileExistsAtPath:retinaName] )
             return retinaName;
 
-        CCLOG("cocos2d: CCFileUtils: Warning HD file not found: %@", [retinaName lastPathComponent] );
+        CCLOG("cocos2d: CCFileUtils: Warning HD file not found: %s", [[retinaName lastPathComponent] UTF8String]);
     }
 
 #endif // CC_IS_RETINA_DISPLAY_SUPPORTED
@@ -368,6 +370,48 @@ namespace cocos2d {
         std::string strRet = [documentsDirectory UTF8String];
         strRet.append("/");
         return strRet;
+    }
+    
+    unsigned char* CCFileUtils::getFileDataFromZip(const char* pszZipFilePath, const char* pszFileName, unsigned long * pSize)
+    {
+		    unsigned char * pBuffer = NULL;
+		    unzFile pFile = NULL;
+		    *pSize = 0;
+		
+		    do 
+		    {
+		        CC_BREAK_IF(!pszZipFilePath || !pszFileName);
+		        CC_BREAK_IF(strlen(pszZipFilePath) == 0);
+		
+		        pFile = unzOpen(pszZipFilePath);
+		        CC_BREAK_IF(!pFile);
+		
+		        int nRet = unzLocateFile(pFile, pszFileName, 1);
+		        CC_BREAK_IF(UNZ_OK != nRet);
+		
+		        char szFilePathA[260];
+		        unz_file_info FileInfo;
+		        nRet = unzGetCurrentFileInfo(pFile, &FileInfo, szFilePathA, sizeof(szFilePathA), NULL, 0, NULL, 0);
+		        CC_BREAK_IF(UNZ_OK != nRet);
+		
+		        nRet = unzOpenCurrentFile(pFile);
+		        CC_BREAK_IF(UNZ_OK != nRet);
+		
+		        pBuffer = new unsigned char[FileInfo.uncompressed_size];
+		        int nSize = 0;
+		        nSize = unzReadCurrentFile(pFile, pBuffer, FileInfo.uncompressed_size);
+		        CCAssert(nSize == 0 || nSize == (int)FileInfo.uncompressed_size, "the file size is wrong");
+		
+		        *pSize = FileInfo.uncompressed_size;
+		        unzCloseCurrentFile(pFile);
+		    } while (0);
+		
+		    if (pFile)
+		    {
+		        unzClose(pFile);
+		    }
+
+				return pBuffer;
     }
 
 }//namespace cocos2d

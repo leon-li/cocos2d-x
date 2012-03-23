@@ -612,6 +612,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\CCTouchHandler.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\CCTransition.h"
 				>
 			</File>
@@ -637,10 +641,6 @@
 			</File>
 			<File
 				RelativePath="..\include\cocos2d.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\selector_protocol.h"
 				>
 			</File>
 		</Filter>
@@ -834,6 +834,10 @@
 			<Filter
 				Name="win32"
 				>
+				<File
+					RelativePath="..\platform\win32\CCAccelerometer_win32.cpp"
+					>
+				</File>
 				<File
 					RelativePath="..\platform\win32\CCAccelerometer_win32.h"
 					>
@@ -1047,10 +1051,6 @@
 				RelativePath="..\touch_dispatcher\CCTouchHandler.cpp"
 				>
 			</File>
-			<File
-				RelativePath="..\touch_dispatcher\CCTouchHandler.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="keypad_dispatcher"
@@ -1081,6 +1081,18 @@
 			>
 			<File
 				RelativePath="..\script_support\CCScriptSupport.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="extensions"
+			>
+			<File
+				RelativePath="..\extensions\CCNotificationCenter.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\extensions\CCNotificationCenter.h"
 				>
 			</File>
 		</Filter>

@@ -74,16 +74,6 @@ void CCActionManager::purgeSharedManager(void)
 	CC_SAFE_RELEASE(gSharedManager);
 }
 
-void CCActionManager::selectorProtocolRetain()
-{
-	retain();
-}
-
-void CCActionManager::selectorProtocolRelease()
-{
-	release();
-}
-
 CCActionManager::CCActionManager(void)
 : m_pTargets(NULL), 
   m_pCurrentTarget(NULL),
@@ -257,7 +247,7 @@ void CCActionManager::removeAllActionsFromTarget(CCObject *pTarget)
 	}
 	else
 	{
-		CCLOG("cocos2d: removeAllActionsFromTarget: Target not found");
+//		CCLOG("cocos2d: removeAllActionsFromTarget: Target not found");
 	}
 }
 

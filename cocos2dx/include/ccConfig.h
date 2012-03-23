@@ -147,7 +147,7 @@ Disabled by default on iPhone with ARMv6 processors.
 @since v0.99.5
 */
 #ifndef CC_USES_VBO
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_AIRPLAY)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE)
 #define CC_USES_VBO 0
 #else
 #define CC_USES_VBO 1
@@ -319,6 +319,11 @@ To enable set it to a value different than 0. Disabled by default.
 #define CC_IS_RETINA_DISPLAY_SUPPORTED 1
 #else
 #define CC_IS_RETINA_DISPLAY_SUPPORTED 0
+#endif
+
+/** Enable Lua engine debug log */
+#ifndef CC_LUA_ENGINE_DEBUG
+#define CC_LUA_ENGINE_DEBUG 0
 #endif
 
 #endif // __CCCONFIG_H__

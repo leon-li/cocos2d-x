@@ -70,7 +70,7 @@ void Paddle::ccTouchMoved(CCTouch* touch, CCEvent* event)
 	
 	CCAssert(m_state == kPaddleStateGrabbed, L"Paddle - Unexpected state!");	
 	
-	CCPoint touchPoint = touch->locationInView( touch->view() );
+	CCPoint touchPoint = touch->locationInView();
     touchPoint = CCDirector::sharedDirector()->convertToGL( touchPoint );
 	
 	setPosition( CCPointMake(touchPoint.x, getPosition().y) );
@@ -82,3 +82,13 @@ void Paddle::ccTouchEnded(CCTouch* touch, CCEvent* event)
 	
 	m_state = kPaddleStateUngrabbed;
 } 
+
+void Paddle::touchDelegateRetain()
+{
+	this->retain();
+}
+
+void Paddle::touchDelegateRelease()
+{
+	this->release();
+}

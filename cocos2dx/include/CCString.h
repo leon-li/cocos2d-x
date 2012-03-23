@@ -26,6 +26,8 @@ THE SOFTWARE.
 #include <string>
 #include <stdlib.h>
 #include "CCObject.h"
+#include "CCFileUtils.h"
+
 namespace cocos2d {
 
 	class CC_DLL CCString : public CCObject
@@ -63,6 +65,40 @@ namespace cocos2d {
 		{
 			return m_sString.empty();
 		}
+
+        virtual bool isEqual(const CCObject* pObject)
+        {
+            bool bRet = false;
+            const CCString* pStr = dynamic_cast<const CCString*>(pObject);
+            if (pStr != NULL)
+            {
+                if (0 == m_sString.compare(pStr->m_sString))
+                {
+                    bRet = true;
+                }
+            }
+            return bRet;
+        }
+
+        /** @brief: Get string from a file.
+        *   @return: a pointer which needs to be deleted manually by 'delete[]' .
+        */
+        static char* stringWithContentsOfFile(const char* pszFileName)
+        {
+            unsigned long size = 0;
+            unsigned char* pData = 0;
+            char* pszRet = 0;
+            pData = CCFileUtils::getFileData(pszFileName, "rb", &size);
+            do 
+            {
+                CC_BREAK_IF(!pData || size <= 0);
+                pszRet = new char[size+1];
+                pszRet[size] = '\0';
+                memcpy(pszRet, pData, size);
+                CC_SAFE_DELETE_ARRAY(pData);
+            } while (false);
+            return pszRet;
+        }
 	};
 }// namespace cocos2d
 #endif //__CCSTRING_H__

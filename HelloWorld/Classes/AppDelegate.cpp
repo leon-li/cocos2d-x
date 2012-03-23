@@ -54,7 +54,7 @@ bool AppDelegate::initInstance() {
 #endif
 
 #endif  // CC_PLATFORM_WOPHONE
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_AIRPLAY)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE)
 		// MaxAksenov said it's NOT a very elegant solution. I agree, haha
 		CCDirector::sharedDirector()->setDeviceOrientation(kCCDeviceOrientationLandscapeLeft);
 #endif
@@ -64,9 +64,9 @@ bool AppDelegate::initInstance() {
 		// The HelloWorld is designed as HVGA.
 		CCEGLView * pMainWnd = new CCEGLView();
 		CC_BREAK_IF(! pMainWnd
-				|| ! pMainWnd->Create("cocos2d: Hello World", 800, 480,480, 320));
+				|| ! pMainWnd->Create("cocos2d: Hello World", 480, 320 ,480, 320));
 
-		CCFileUtils::setResourcePath("../Resource/");
+		CCFileUtils::setResourcePath("../Resources/");
 
 #endif  // CC_PLATFORM_LINUX
 
@@ -79,6 +79,11 @@ bool AppDelegate::initInstance() {
 
 #endif  // CC_PLATFORM_BADA
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_QNX)
+		CCEGLView * pMainWnd = new CCEGLView();
+		CC_BREAK_IF(! pMainWnd|| ! pMainWnd->Create(1024, 600));
+		CCFileUtils::setResourcePath("app/native/Resources");
+#endif // CC_PLATFORM_QNX
 		bRet = true;
 	} while (0);
 	return bRet;

@@ -60,20 +60,21 @@ namespace cocos2d{
 		{}
 		virtual ~CCMenu(){}
 
-                /** creates an empty CCMenu */
-                static CCMenu* node();
+        /** creates an empty CCMenu */
+        static CCMenu* node();
 
-                /** creates a CCMenu with it's items */
-                static CCMenu* menuWithItems(CCMenuItem* item, ...);
+        /** creates a CCMenu with it's items */
+        static CCMenu* menuWithItems(CCMenuItem* item, ...);
 
 		/** creates a CCMenu with it's item, then use addChild() to add 
 		  * other items. It is used for script, it can't init with undetermined
 		  * number of variables.
 		*/
-		static CCMenu*menuWithItem(CCMenuItem* item);
+		static CCMenu* menuWithItem(CCMenuItem* item);
 
-                /** initializes an empty CCMenu */
-                bool init();
+        /** initializes an empty CCMenu */
+        bool init();
+
 		/** initializes a CCMenu with it's items */
 		bool initWithItems(CCMenuItem* item, va_list args);
 
@@ -112,21 +113,19 @@ namespace cocos2d{
 		virtual void ccTouchCancelled(CCTouch *touch, CCEvent* event);
 		virtual void ccTouchMoved(CCTouch* touch, CCEvent* event);
 
-		virtual void destroy(void);
-		virtual void keep(void);
-
         /**
         @since v0.99.5
         override onExit
         */
         virtual void onExit();
 
-		virtual CCRGBAProtocol* convertToRGBAProtocol() { return (CCRGBAProtocol*)this; }
+		virtual void setIsOpacityModifyRGB(bool bValue) {CC_UNUSED_PARAM(bValue);}
+	    virtual bool getIsOpacityModifyRGB(void) { return false;}
 
 	protected:
 		CCMenuItem* itemForTouch(CCTouch * touch);
 		tCCMenuState m_eState;
-		CCMenuItem *m_pSelectedItem;		
+		CCMenuItem *m_pSelectedItem;
 	};
 }
 

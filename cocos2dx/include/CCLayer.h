@@ -36,6 +36,8 @@ THE SOFTWARE.
 
 namespace   cocos2d {
 
+class CCTouchScriptHandlerEntry;
+
 //
 // CCLayer
 //
@@ -56,21 +58,20 @@ public:
 	virtual void onEnter();
 	virtual void onExit();
     virtual void onEnterTransitionDidFinish();
+    
+    // default implements are used to call script callback if exist
 	virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
 
 	// default implements are used to call script callback if exist
 	virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
 	virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
 	virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
 	virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
-
-	virtual void destroy(void);
-	virtual void keep(void);
 	
     virtual void didAccelerate(CCAcceleration* pAccelerationValue) {CC_UNUSED_PARAM(pAccelerationValue);}
-
-    virtual void KeypadDestroy();
-    virtual void KeypadKeep();
 
 	/** If isTouchEnabled, this method is called onEnter. Override it to change the
 	way CCLayer receives touch events.
@@ -83,6 +84,11 @@ public:
 	@since v0.8.0
 	*/
 	virtual void registerWithTouchDispatcher(void);
+    
+    /** Register script touch events handler */
+    void registerScriptTouchHandler(int nHandler, bool bIsMultiTouches = false, int nPriority = INT_MIN, bool bSwallowsTouches = false);
+    /** Unregister script touch events handler */
+    void unregisterScriptTouchHandler(void);
 
 	/** whether or not it will receive Touch events.
 	You can enable / disable touch events with this property.
@@ -100,6 +106,12 @@ public:
     it's new in cocos2d-x
     */
     CC_PROPERTY(bool, m_bIsKeypadEnabled, IsKeypadEnabled)
+    
+private:
+    // Script touch events handler
+    CCTouchScriptHandlerEntry* m_pScriptHandlerEntry;
+    int  excuteScriptTouchHandler(int nEventType, CCTouch *pTouch);
+    int  excuteScriptTouchHandler(int nEventType, CCSet *pTouches);
 };
     
 // for the subclass of CCLayer, each has to implement the static "node" method 
@@ -188,7 +200,8 @@ public:
 	/** BlendFunction. Conforms to CCBlendProtocol protocol */
 	CC_PROPERTY(ccBlendFunc, m_tBlendFunc, BlendFunc)
 
-	virtual CCRGBAProtocol* convertToRGBAProtocol() { return (CCRGBAProtocol*)this; }
+	virtual void setIsOpacityModifyRGB(bool bValue) {CC_UNUSED_PARAM(bValue);}
+    virtual bool getIsOpacityModifyRGB(void) { return false;}
     LAYER_NODE_FUNC(CCLayerColor);
     
 protected:
