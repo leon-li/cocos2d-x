@@ -352,7 +352,9 @@ void CCTouchDispatcher::touches(CCSet *pTouches, CCEvent *pEvent, unsigned int u
 			pTouch = (CCTouch *)(*setIter);
 			CCTargetedTouchHandler *pHandler;
 			CCMutableArray<CCTouchHandler*>::CCMutableArrayIterator arrayIter;
-			for (arrayIter = m_pTargetedHandlers->begin(); arrayIter != m_pTargetedHandlers->end(); ++arrayIter)
+            CCMutableArray<CCTouchHandler*> targetedHandlers;
+            targetedHandlers.addObjectsFromArray(m_pTargetedHandlers);
+			for (arrayIter = targetedHandlers.begin(); arrayIter != targetedHandlers.end(); ++arrayIter)
 			/*for (unsigned int i = 0; i < m_pTargetedHandlers->num; ++i)*/
 			{
                 pHandler = (CCTargetedTouchHandler *)(*arrayIter);
@@ -412,8 +414,10 @@ void CCTouchDispatcher::touches(CCSet *pTouches, CCEvent *pEvent, unsigned int u
 	if (uStandardHandlersCount > 0 && pMutableTouches->count() > 0)
 	{
 		CCMutableArray<CCTouchHandler*>::CCMutableArrayIterator iter;
+        CCMutableArray<CCTouchHandler*> standardHandlers;
+        standardHandlers.addObjectsFromArray(m_pStandardHandlers);
 		CCStandardTouchHandler *pHandler;
-		for (iter = m_pStandardHandlers->begin(); iter != m_pStandardHandlers->end(); ++iter)
+		for (iter = standardHandlers.begin(); iter != standardHandlers.end(); ++iter)
 		{
 			pHandler = (CCStandardTouchHandler*)(*iter);
 
