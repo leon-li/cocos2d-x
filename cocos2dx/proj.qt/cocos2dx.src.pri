@@ -183,7 +183,6 @@ HEADERS += $${PWD}/../include/CCAccelerometerDelegate.h \
             $${PWD}/../include/CCUserDefault.h \
             $${PWD}/../include/CCZone.h \
             $${PWD}/../include/cocos2d.h \
-            $${PWD}/../include/selector_protocol.h \
             $${PWD}/../platform/CCAccelerometer_platform.h \
             $${PWD}/../platform/CCApplication_platform.h \
             $${PWD}/../platform/CCArchOptimalParticleSystem.h \
@@ -199,3 +198,6 @@ HEADERS += $${PWD}/../include/CCAccelerometerDelegate.h \
             $${PWD}/../platform/CCStdC.h \
             $${PWD}/../platform/CCThread.h \
             $${PWD}/../platform/platform.h
+
+
+OTHER_FILES += publish_sdk.sh
