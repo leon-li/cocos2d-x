@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <string>
 #include <map>
 #include <list>
+#include <cstring>
 
 typedef struct lua_State lua_State;
 
