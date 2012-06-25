@@ -440,7 +440,7 @@ CCBMFontConfiguration::~CCBMFontConfiguration()
 const char* CCBMFontConfiguration::description(void)
 {
 	char* pBuf = new char[100];
-	sprintf(pBuf, "<CCBMFontConfiguration = %08X | Glphys:%d Kernings:%d | Image = %s>", (unsigned int)this,
+    sprintf(pBuf, "<CCBMFontConfiguration = x%p | Glphys:%d Kernings:%d | Image = %s>", this,
 		HASH_COUNT(m_pFontDefDictionary),
 		HASH_COUNT(m_pKerningDictionary),
 		m_sAtlasName.c_str());
